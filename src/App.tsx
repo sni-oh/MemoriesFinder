@@ -18,7 +18,7 @@ function createUrls(
         const currentPath = parentPath ? `${parentPath}/${node.folderName}` : node.folderName;
         for (const file of node.files) {
             // Prepend the AccessPath and the folder's path to the filename.
-            result.push(`${AccessPath}${currentPath}/${file}`);
+            result.push(`${AccessPath}/thumbnails/${currentPath}/${file}`);
         }
         // Recurse for children, passing the current node's path as the new parent path.
         if (node.childrenFolder && node.childrenFolder.length > 0) {
