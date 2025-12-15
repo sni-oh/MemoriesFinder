@@ -1,6 +1,6 @@
 import React from 'react';
 import './HierarchyNavigator.css';
-import type { FolderNode } from './types'; 
+import type { FolderNode } from '../types/types'; 
 
 interface HierarchyNavigatorProps {
   node: FolderNode;
