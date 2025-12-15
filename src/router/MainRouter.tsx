@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import { useState } from "react";
 import MainHeader from "../components/MainHeader";
 import type { FolderNode, IndexJson } from '../types/types';
+import HierarchView from "../components/HierarchyView";
 
 // 開発用パス
 const AccessPath = "/cf"; // "https://d2pbdl8x41rdu4.cloudfront.net";
@@ -28,14 +29,19 @@ function createUrls(
     return result;
 }
 
-// フェッチを実行してURL配列を取得する
+// フェッチを実行して結果を返却する
 const fetchIndex = async () => {
   const res = await fetch(AccessPath + '/index.json');
-  return createUrls(await res.json(), "");
+  if(res.status === 200){
+    return await res.json()
+  }else{
+    console.log("http error!! status: " + res.status)
+    return null
+  }
 }
 
 const MainRouter: React.FC = () => {
-  const [urls, setUrls] = useState([""])
+  const [indexInfo, setIndexInfo] = useState<FolderNode>();
 
   useEffect(() => {
     fetchIndex()
@@ -43,14 +49,19 @@ const MainRouter: React.FC = () => {
         // console output
         console.log(res);
         // set response urls
-        setUrls(res);
+        setIndexInfo(res);
       })
       .catch(e => console.log("error:" + e));
   },[]);
 
   return (
     <>
-      <MainHeader/>
+      <div>
+        <MainHeader/>
+      </div>
+      <div>
+        {indexInfo && <HierarchView key={"root"} node={indexInfo as FolderNode}/>}
+      </div>
     </>
   )
 }
