@@ -22,11 +22,7 @@ const HierarchView: React.FC<HierarchViewProps> = ({node, path}) => {
         return <HierarchView key={child.folderName} node={child} path={`${path}/${child.folderName}`}/>
       })}
       {node.files.map((imgName) => {
-        return (
-          <>
-            <img width='200px' src={`${path}/${imgName}`} loading="lazy"></img>
-          </>
-        )
+        return <img key={imgName} width='200px' src={`${path}/${imgName}`} loading="lazy"></img>
       })}
     </>
   )
