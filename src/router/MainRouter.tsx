@@ -5,7 +5,7 @@ import type { FolderNode } from '../types/types';
 import HierarchView from "../components/HierarchyView";
 
 // 開発用パス
-const AccessPath = "/cf"; // "https://d2pbdl8x41rdu4.cloudfront.net";
+const AccessPath = "";
 
 // フェッチを実行して結果を返却する
 const fetchIndex = async () => {
@@ -20,6 +20,7 @@ const fetchIndex = async () => {
 
 const MainRouter: React.FC = () => {
   const [indexInfo, setIndexInfo] = useState<FolderNode>();
+  const [previewPath, setPreviewPath] = useState("");
 
   useEffect(() => {
     fetchIndex()
@@ -38,8 +39,9 @@ const MainRouter: React.FC = () => {
         <MainHeader/>
       </div>
       <div>
-        {indexInfo && <HierarchView key={"root"} node={indexInfo as FolderNode} path=""/>}
+        {indexInfo && <HierarchView key={"root"} node={indexInfo as FolderNode} path={AccessPath} onSelectImg={setPreviewPath}/>}
       </div>
+      {previewPath && <p onClick={() => setPreviewPath("")}>{previewPath}</p>}
     </>
   )
 }
