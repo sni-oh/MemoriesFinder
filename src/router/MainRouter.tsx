@@ -22,6 +22,8 @@ const fetchIndex = async () => {
 const MainRouter: React.FC = () => {
   const [indexInfo, setIndexInfo] = useState<FolderNode>();
   const [previewPath, setPreviewPath] = useState("");
+  // 0:通常　1:戻るボタン有効
+  const [headerState, setHeaderState] = useState(0);
 
   useEffect(() => {
     fetchIndex()
@@ -37,7 +39,7 @@ const MainRouter: React.FC = () => {
   return (
     <>
       <div>
-        <MainHeader/>
+        <MainHeader headerState={headerState}/>
       </div>
       <div>
         {indexInfo && <HierarchView key={"root"} node={indexInfo as FolderNode} path={""} onSelectImg={setPreviewPath}/>}
