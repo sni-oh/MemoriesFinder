@@ -1,11 +1,12 @@
 import React, { useEffect } from "react"
 import { useState } from "react";
 import MainHeader from "../components/MainHeader";
+import ModalPreview from "../components/ModalPreview";
 import type { FolderNode } from '../types/types';
 import HierarchView from "../components/HierarchyView";
 
 // 開発用パス
-const AccessPath = "";
+const AccessPath = "/cf";
 
 // フェッチを実行して結果を返却する
 const fetchIndex = async () => {
@@ -39,9 +40,9 @@ const MainRouter: React.FC = () => {
         <MainHeader/>
       </div>
       <div>
-        {indexInfo && <HierarchView key={"root"} node={indexInfo as FolderNode} path={AccessPath} onSelectImg={setPreviewPath}/>}
+        {indexInfo && <HierarchView key={"root"} node={indexInfo as FolderNode} path={""} onSelectImg={setPreviewPath}/>}
       </div>
-      {previewPath && <p onClick={() => setPreviewPath("")}>{previewPath}</p>}
+      {previewPath && <ModalPreview contentPath={AccessPath + previewPath} onClose={setPreviewPath}/>}
     </>
   )
 }

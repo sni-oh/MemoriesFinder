@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './HierarchyView.css'
 import type { FolderNode } from '../types/types';
 
 interface HierarchViewProps{
@@ -10,11 +11,15 @@ interface HierarchViewProps{
   onSelectImg: React.Dispatch<React.SetStateAction<string>>
 }
 
+const AccessPath = "/cf";
+const thumbnailPath = "/thumbnails";
+
 const HierarchView: React.FC<HierarchViewProps> = ({node, path, onSelectImg}) => {
   // クリックで画像を展開するためのState
   const [isOpen, setIsOpen] = useState(false);
   const isMonth = 1 <= Number(node.folderName) && Number(node.folderName) <= 12;
 
+  // propsで渡されたノードの要素を数値順でソートする（文字列フォルダ非対応）
   node.childrenFolder.sort((a, b) => {
     const numa = Number(a.folderName);
     const numb = Number(b.folderName)
@@ -25,9 +30,6 @@ const HierarchView: React.FC<HierarchViewProps> = ({node, path, onSelectImg}) =>
   if(node.folderName === ""){
     return (
       <>
-        <div onClick={() => setIsOpen(() => !isOpen)}>
-          <p>{node.folderName}</p>
-        </div>
         {node.childrenFolder && node.childrenFolder.map((child) => {
           return <HierarchView key={child.folderName} node={child} path={`${path}/${child.folderName}`} onSelectImg={onSelectImg}/>
         })}
@@ -45,7 +47,12 @@ const HierarchView: React.FC<HierarchViewProps> = ({node, path, onSelectImg}) =>
         return <HierarchView key={child.folderName} node={child} path={`${path}/${child.folderName}`} onSelectImg={onSelectImg}/>
       })}
       {isOpen && node.files.map((imgName) => {
-        return <img key={imgName} width='100px' src={`/cf/thumbnails${path}/${imgName}`} loading="lazy" onClick={() => onSelectImg(`${path}/${imgName}`)}></img>
+        return <img key={imgName}
+                    width='100px' 
+                    src={`${AccessPath}${thumbnailPath}${path}/${imgName}`}
+                    loading="lazy" 
+                    onClick={() => onSelectImg(`${path}/${imgName}`)}
+                    className='thumbnailImage'/>
       })}
     </>
   )
