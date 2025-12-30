@@ -1,5 +1,6 @@
 import React from 'react'
 import './ModalPreview.css'
+import PostReaction from './PostReaction'
 
 interface MediaPreviewProps{
   contentPath: string,
@@ -12,7 +13,8 @@ const MediaPreview: React.FC<MediaPreviewProps> = ({contentPath, onClose}) => {
     <>
       <div className='overlay'>
         <div className='close-button' onClick={() => {onClose('')}}>閉じる</div>
-        <img src={contentPath} className='image'></img>
+        <img src={"/cf" + contentPath} className='image'></img>
+        <PostReaction reactionTargetPath={contentPath} />
       </div>
     </>
   )

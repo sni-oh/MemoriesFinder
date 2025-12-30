@@ -1,0 +1,22 @@
+.sample{
+  background-color: aqua;
+}
+
+.right_down_pos_flexbox{
+  display: flex;
+  position: fixed;
+  flex-direction: row;
+  right: 30px;
+  bottom: 50px;
+}
+
+.round_background{
+  text-align: center;
+  justify-content: center;
+  background-color: wheat;
+  border-radius: 30px;
+  width: 60px;
+  height: 60px;
+  font-size: 40px;
+  margin-right: 5px;
+}

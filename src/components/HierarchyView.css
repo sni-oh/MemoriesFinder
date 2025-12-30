@@ -1,4 +1,7 @@
 .thumbnailImage{
+  display: flex;
+  flex-wrap: wrap;
   width: 33%;
   max-width: 300px;
+  background-color: aqua;
 }
