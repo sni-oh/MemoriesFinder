@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './PostReaction.css'
 import React from 'react';
 import type { FileInfo } from '../types/types';
 
 const REACTIONTYPE_LIKE = "Like"
-const REACTIONTYPE_COMMENT = "Comment"
+//const REACTIONTYPE_COMMENT = "Comment"
 
 interface PostReactionProps{
   reactionTargetPath: string,
@@ -14,7 +14,6 @@ interface PostReactionProps{
 const AccessPath = import.meta.env.VITE_API_BASE;
 
 const PostReaction: React.FC<PostReactionProps> = ({reactionTargetPath, contentFile}) => {
-  const [commentOpen, setCommentOpen] = useState(false)
   const [isLikeActive, setIsLikeActive] = useState(contentFile.Reactions.filter(x => x.reactionType === REACTIONTYPE_LIKE).length > 0)
 
   // リアクションをアップロードする

@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
 import React from 'react';
 
 interface MainHeaderProps{
-  headerState: number
+  //headerState: number
 }
 
-const MainHeader: React.FC<MainHeaderProps> = ({headerState}) => {
+const MainHeader: React.FC<MainHeaderProps> = () => {
   return <header>MemoriesFinder</header>
 }
 

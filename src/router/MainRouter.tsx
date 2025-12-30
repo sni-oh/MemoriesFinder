@@ -34,9 +34,6 @@ const MainRouter: React.FC = () => {
   const [previewFile, setPreviewFile] = useState<FileInfo | null>(null);
   const [previewPath, setPreviewPath] = useState<string>("");
 
-  // 0:通常　1:戻るボタン有効?
-  const [headerState, setHeaderState] = useState(0);
-
   const changePreviewFile = (file: FileInfo | null, path: string): void => {
     setPreviewFile(file);
     setPreviewPath(path);
@@ -76,7 +73,7 @@ const MainRouter: React.FC = () => {
   return (
     <>
       <div>
-        <MainHeader headerState={headerState}/>
+        <MainHeader/>
       </div>
       <div>
         {indexInfo && <HierarchView key={"root"} node={indexInfo as FolderNode} path={""} onSelectImg={changePreviewFile}/>}
