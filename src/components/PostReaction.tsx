@@ -58,11 +58,6 @@ const PostReaction: React.FC<PostReactionProps> = ({reactionTargetPath, contentF
           onClick={() => uploadReaction(REACTIONTYPE_LIKE, reactionTargetPath)}
           className='round_background'
         >{isLikeActive ? "❤️" : "🤍"}</div>
-        <div
-          onClick={() => setCommentOpen(() => !commentOpen)}
-          className='round_background'
-        >💬</div>
-        <p className='sample'>{commentOpen ? "OPEN" : "CLOSE"}</p>
       </div>
     </>
   )
