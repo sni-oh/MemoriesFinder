@@ -1,7 +1,10 @@
-.thumbnailImage{
+.thumbnail{
+  max-width: 300px;
+  width: 33%;
+}
+
+.thumbnailImageContainer{
   display: flex;
   flex-wrap: wrap;
-  width: 33%;
-  max-width: 300px;
   background-color: aqua;
 }

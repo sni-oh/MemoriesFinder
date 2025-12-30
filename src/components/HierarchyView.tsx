@@ -48,13 +48,16 @@ const HierarchView: React.FC<HierarchViewProps> = ({node, path, onSelectImg}) =>
       })}
       {isOpen && node.files.map((file) => {
         return (
-        <div className='thumbnailImage' key={file.fileName}>
-          <img width='95%' 
-                src={`${AccessPath}${thumbnailPath}${path}/${file.fileName}`}
-                loading="lazy" 
-                onClick={() => onSelectImg(`${path}/${file.fileName}`)}/>
-          <p>🤍</p>
-        </div>)
+          <div className='thumbnailImageContainer' key={file.fileName}>
+            <div className='thumbnail'>
+              <img width='95%' 
+                    src={`${AccessPath}${thumbnailPath}${path}/${file.fileName}`}
+                    loading="lazy" 
+                    onClick={() => onSelectImg(`${path}/${file.fileName}`)}/>
+              <p>🤍</p>
+            </div>
+          </div>
+        )
       })}
     </>
   )
