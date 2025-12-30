@@ -9,7 +9,7 @@ const AccessPath = import.meta.env.VITE_API_BASE;
 
 // フェッチを実行して結果を返却する
 const fetchIndex = async ()  => {
-  const res = await fetch(AccessPath + '/index.json');
+  const res = await fetch(AccessPath + '/info/index.json');
 
   if(res.status === 200){
     return await res.json()
@@ -20,7 +20,7 @@ const fetchIndex = async ()  => {
 }
 
 const fetchReactions = async () => {
-  const res = await fetch(AccessPath + '/reactions.json')
+  const res = await fetch(AccessPath + '/info/reactions.json')
   if(res.status === 200){
     return await res.json()
   }else{
@@ -35,8 +35,9 @@ const MainRouter: React.FC = () => {
   const [previewPath, setPreviewPath] = useState<string>("");
 
   const changePreviewFile = (file: FileInfo | null, path: string): void => {
-    setPreviewFile(file);
+    console.log(`path: ${path} fileinfo: ${file}`)
     setPreviewPath(path);
+    setPreviewFile(file);
   }
 
   useEffect(() => {

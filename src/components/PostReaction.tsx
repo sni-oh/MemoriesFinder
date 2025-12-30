@@ -14,7 +14,7 @@ interface PostReactionProps{
 const AccessPath = import.meta.env.VITE_API_BASE;
 
 const PostReaction: React.FC<PostReactionProps> = ({reactionTargetPath, contentFile}) => {
-  const [isLikeActive, setIsLikeActive] = useState(contentFile.Reactions.filter(x => x.reactionType === REACTIONTYPE_LIKE).length > 0)
+  const [isLikeActive, setIsLikeActive] = useState(contentFile.Reactions?.filter(x => x.reactionType === REACTIONTYPE_LIKE).length > 0)
 
   // リアクションをアップロードする
   const uploadReaction = (reactionType: string, path: string, message: string = "") => {
