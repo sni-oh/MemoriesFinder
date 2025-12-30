@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import MainHeader from "../components/MainHeader";
 import ModalPreview from "../components/ModalPreview";
-import type { FolderNode, Reaction } from '../types/types';
+import type { FolderNode, Reaction, FileInfo } from '../types/types';
 import HierarchView from "../components/HierarchyView";
 
 // 開発用パス
-const AccessPath = "/cf";
+const AccessPath = import.meta.env.VITE_API_BASE;
 
 // フェッチを実行して結果を返却する
 const fetchIndex = async ()  => {
@@ -29,15 +29,18 @@ const fetchReactions = async () => {
   }
 }
 
-const pushReaction = (target: FolderNode, reaction: Reaction, path: string[]) => {
-  
-}
-
 const MainRouter: React.FC = () => {
   const [indexInfo, setIndexInfo] = useState<FolderNode>();
+  const [previewFile, setPreviewFile] = useState<FileInfo | null>(null);
   const [previewPath, setPreviewPath] = useState<string>("");
+
   // 0:通常　1:戻るボタン有効?
   const [headerState, setHeaderState] = useState(0);
+
+  const changePreviewFile = (file: FileInfo | null, path: string): void => {
+    setPreviewFile(file);
+    setPreviewPath(path);
+  }
 
   useEffect(() => {
     fetchIndex()
@@ -49,10 +52,11 @@ const MainRouter: React.FC = () => {
 
             for(let i=0; i<reactions.length; i++){
               const path = reactions[i].target.split("/")
+              // 更新する要素の抽出
               const item = base.childrenFolder.find(x => x.folderName === path[1])
-              ?.childrenFolder.find(x => x.folderName === path[2])
-              ?.files.find((x => x.fileName === path[3]));
-
+                ?.childrenFolder.find(x => x.folderName === path[2])
+                ?.files.find((x => x.fileName === path[3]));
+              // 抽出した要素のReactionを追加
               if(item){
                 if(item.Reactions){
                   item.Reactions.push(reactions[i])
@@ -75,10 +79,9 @@ const MainRouter: React.FC = () => {
         <MainHeader headerState={headerState}/>
       </div>
       <div>
-        {indexInfo && <HierarchView key={"root"} node={indexInfo as FolderNode} path={""} onSelectImg={setPreviewPath}/>}
+        {indexInfo && <HierarchView key={"root"} node={indexInfo as FolderNode} path={""} onSelectImg={changePreviewFile}/>}
       </div>
-      {previewPath && <ModalPreview contentPath={previewPath} onClose={setPreviewPath}/>}
-      
+      {previewFile && <ModalPreview contentPath={previewPath} contentFile={previewFile} onClose={changePreviewFile}/>}
     </>
   )
 }

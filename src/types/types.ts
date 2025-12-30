@@ -1,10 +1,10 @@
 export type FolderNode = {
     folderName: string;
-    files: File[];
+    files: FileInfo[];
     childrenFolder: FolderNode[];
 };
 
-export type File = {
+export type FileInfo = {
     fileName: string;
     fileType: string;
     Reactions: Reaction[];

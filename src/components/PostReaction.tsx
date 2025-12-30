@@ -1,17 +1,21 @@
 import { useState, useEffect } from 'react';
 import './PostReaction.css'
 import React from 'react';
+import type { FileInfo } from '../types/types';
 
 const REACTIONTYPE_LIKE = "Like"
 const REACTIONTYPE_COMMENT = "Comment"
 
 interface PostReactionProps{
-  reactionTargetPath: string
+  reactionTargetPath: string,
+  contentFile: FileInfo
 }
 
-const PostReaction: React.FC<PostReactionProps> = ({reactionTargetPath}) => {
+const AccessPath = import.meta.env.VITE_API_BASE;
+
+const PostReaction: React.FC<PostReactionProps> = ({reactionTargetPath, contentFile}) => {
   const [commentOpen, setCommentOpen] = useState(false)
-  const [isLikeActive, setIsLikeActive] = useState(false)
+  const [isLikeActive, setIsLikeActive] = useState(contentFile.Reactions.filter(x => x.reactionType === REACTIONTYPE_LIKE).length > 0)
 
   // リアクションをアップロードする
   const uploadReaction = (reactionType: string, path: string, message: string = "") => {
@@ -21,7 +25,7 @@ const PostReaction: React.FC<PostReactionProps> = ({reactionTargetPath}) => {
       return;
     }
 
-    fetch('/cf/main/api/postdata', {
+    fetch(`${AccessPath}/main/api/postdata`, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './HierarchyView.css'
-import type { FolderNode } from '../types/types';
+import type { FolderNode, FileInfo } from '../types/types';
 
 interface HierarchViewProps{
   // この要素に関連づけられたノード
@@ -8,10 +8,10 @@ interface HierarchViewProps{
   // この要素を含むパス
   path: string
   // 画像が選択された時に呼ばれる関数
-  onSelectImg: React.Dispatch<React.SetStateAction<string>>
+  onSelectImg: (file: FileInfo | null, path: string) => void
 }
 
-const AccessPath = "/cf";
+const AccessPath = import.meta.env.VITE_API_BASE;
 const thumbnailPath = "/thumbnails";
 
 const HierarchView: React.FC<HierarchViewProps> = ({node, path, onSelectImg}) => {
@@ -53,10 +53,9 @@ const HierarchView: React.FC<HierarchViewProps> = ({node, path, onSelectImg}) =>
               <img className='thumbnailImage'
                     src={`${AccessPath}${thumbnailPath}${path}/${file.fileName}`}
                     loading="lazy" 
-                    onClick={() => onSelectImg(`${path}/${file.fileName}`)}/>
+                    onClick={() => onSelectImg(file, `${path}/${file.fileName}`)}/>
               <div className='reactionEmojiContainer'>
-                <div>🤍</div>
-                <div>💬</div>
+                {file.Reactions?.find(x => x.reactionType === "Like") ? <div>❤️</div> : false}
               </div>
             </div>
           )
