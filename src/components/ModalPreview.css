@@ -1,0 +1,21 @@
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  display: grid;
+  place-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.close-button{
+  background-color: black;
+  color: white;
+  position: fixed;
+  text-align: right;
+}
+
+.image{
+  width: 80%;
+}
