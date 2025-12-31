@@ -17,7 +17,7 @@ const MediaPreview: React.FC<MediaPreviewProps> = ({contentPath, contentFile, on
     <>
       <div className='overlay'>
         <div className='close-button' onClick={() => {onClose(null, '')}}>閉じる</div>
-        <img src={AccessPath + "/assets" + contentPath} className='image'></img>
+        <img src={AccessPath + "/pics" + contentPath} className='image'></img>
         <PostReaction reactionTargetPath={contentPath} contentFile={contentFile}/>
       </div>
     </>
