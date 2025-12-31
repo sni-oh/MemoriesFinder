@@ -1,0 +1,20 @@
+.thumbnail{
+  position: relative;
+  max-width: 300px;
+  width: 32%;
+  border: 2px solid black;
+}
+
+.reactionEmojiContainer {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+}
+
+.thumbnailImage {
+  width: 100%;
+  justify-content: center;
+}

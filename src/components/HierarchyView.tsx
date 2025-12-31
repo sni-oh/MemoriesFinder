@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './HierarchyView.css'
+import Thumbnail from './Thumbnail.tsx'
 import type { FolderNode, FileInfo } from '../types/types';
 
 interface HierarchViewProps{
@@ -10,9 +11,6 @@ interface HierarchViewProps{
   // 画像が選択された時に呼ばれる関数
   onSelectImg: (file: FileInfo | null, path: string) => void
 }
-
-const AccessPath = import.meta.env.VITE_API_BASE;
-const thumbnailPath = "/thumbnails";
 
 const HierarchView: React.FC<HierarchViewProps> = ({node, path, onSelectImg}) => {
   // クリックで画像を展開するためのState
@@ -48,17 +46,7 @@ const HierarchView: React.FC<HierarchViewProps> = ({node, path, onSelectImg}) =>
       })}
       <div className='thumbnailImageContainer' >
         {isOpen && node.files.map((file) => {
-          return (
-            <div className='thumbnail' key={file.fileName}>
-              <img className='thumbnailImage'
-                    src={`${AccessPath}${thumbnailPath}${path}/${file.fileName}`}
-                    loading="lazy" 
-                    onClick={() => onSelectImg(file, `${path}/${file.fileName}`)}/>
-              <div className='reactionEmojiContainer'>
-                {file.Reactions?.find(x => x.reactionType === "Like") ? <div>❤️</div> : false}
-              </div>
-            </div>
-          )
+          return <Thumbnail key={path + file.fileName} file={file} path={path} onSelectImg={onSelectImg}/>
         })}
       </div>
     </>
