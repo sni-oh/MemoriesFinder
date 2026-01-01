@@ -3,6 +3,8 @@ import MainHeader from "../components/MainHeader";
 import ModalPreview from "../components/ModalPreview";
 import type { FolderNode, Reaction, FileInfo } from '../types/types';
 import HierarchView from "../components/HierarchyView";
+import ModeSelectionTab from "../components/ModeSelectionTab";
+import LikeThumbsContainer from "../components/LikeThumbsContainer";
 
 // 開発用パス
 const AccessPath = import.meta.env.VITE_API_BASE;
@@ -33,11 +35,19 @@ const MainRouter: React.FC = () => {
   const [indexInfo, setIndexInfo] = useState<FolderNode>();
   const [previewFile, setPreviewFile] = useState<FileInfo | null>(null);
   const [previewPath, setPreviewPath] = useState<string>("");
+  const [mode, setMode] = useState<string>("ByYM")
 
-  const changePreviewFile = (file: FileInfo | null, path: string): void => {
-    console.log(`path: ${path} fileinfo: ${file}`)
+  const changePreviewFile = (path: string): void => {
     setPreviewPath(path);
-    setPreviewFile(file);
+    const pathArr = path.split('/');
+    const item = indexInfo?.childrenFolder.find(x => x.folderName === pathArr[1])
+                ?.childrenFolder.find(x => x.folderName === pathArr[2])
+                ?.files.find((x => x.fileName === pathArr[3]));
+    setPreviewFile(item ?? null);
+  }
+
+  const switchSelectedMode = (modeString: string) => {
+    setMode(modeString);
   }
 
   useEffect(() => {
@@ -46,6 +56,7 @@ const MainRouter: React.FC = () => {
         fetchReactions()
           .then(reactionRes => {
             const reactions = reactionRes as Reaction[];
+
             const base = JSON.parse(JSON.stringify(res)) as FolderNode;
 
             for(let i=0; i<reactions.length; i++){
@@ -63,8 +74,6 @@ const MainRouter: React.FC = () => {
                 }
               }
             }
-            console.log(base)
-
             setIndexInfo(base);
           })
       })
@@ -76,10 +85,12 @@ const MainRouter: React.FC = () => {
       <div>
         <MainHeader/>
       </div>
-      <div>
-        {indexInfo && <HierarchView key={"root"} node={indexInfo as FolderNode} path={""} onSelectImg={changePreviewFile}/>}
-      </div>
+      {indexInfo && mode === 'ByYM'
+        && <HierarchView key={"root"} node={indexInfo as FolderNode} path={""} onSelectImg={changePreviewFile}/>}
+      {indexInfo && mode === 'Like'
+        && <LikeThumbsContainer onSelectImg={changePreviewFile} indexInfo={indexInfo} />}
       {previewFile && <ModalPreview contentPath={previewPath} contentFile={previewFile} onClose={changePreviewFile}/>}
+      {!previewFile && <ModeSelectionTab changeMode={switchSelectedMode}/>}
     </>
   )
 }

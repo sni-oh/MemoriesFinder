@@ -24,6 +24,8 @@ const PostReaction: React.FC<PostReactionProps> = ({reactionTargetPath, contentF
       return;
     }
 
+    setIsLikeActive(true)
+
     fetch(`${AccessPath}/main/api/postdata`, {
     method: 'POST',
     headers: {
@@ -39,10 +41,9 @@ const PostReaction: React.FC<PostReactionProps> = ({reactionTargetPath, contentF
     })
     .then(res => {
       console.log(res.body)
-      if(res.status === 200){
-        setIsLikeActive(true)
-      }else{
+      if(res.status !== 200){
         alert("通信に失敗しました。")
+        setIsLikeActive(false)
       }
     })
     .catch(e => {

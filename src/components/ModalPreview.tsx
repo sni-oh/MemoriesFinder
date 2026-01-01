@@ -6,7 +6,7 @@ import type { FileInfo } from '../types/types'
 interface MediaPreviewProps{
   contentPath: string,
   contentFile: FileInfo,
-  onClose: (file: FileInfo | null, path: string) => void
+  onClose: (path: string) => void
 }
 
 const AccessPath = import.meta.env.VITE_API_BASE;
@@ -16,7 +16,7 @@ const MediaPreview: React.FC<MediaPreviewProps> = ({contentPath, contentFile, on
   return (
     <>
       <div className='overlay'>
-        <div className='close-button' onClick={() => {onClose(null, '')}}>✕閉じる</div>
+        <div className='close-button' onClick={() => {onClose('')}}>✕閉じる</div>
         {contentFile.fileType === "picture" ?
           <img src={AccessPath + "/pics" + contentPath} className='image' /> :
           <video src={AccessPath + "/pics" + contentPath} className='image' controls autoPlay/>}

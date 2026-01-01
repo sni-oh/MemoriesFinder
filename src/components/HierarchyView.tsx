@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './HierarchyView.css'
 import Thumbnail from './Thumbnail.tsx'
-import type { FolderNode, FileInfo } from '../types/types';
+import type { FolderNode } from '../types/types';
 
 interface HierarchViewProps{
   // この要素に関連づけられたノード
@@ -9,7 +9,7 @@ interface HierarchViewProps{
   // この要素を含むパス
   path: string
   // 画像が選択された時に呼ばれる関数
-  onSelectImg: (file: FileInfo | null, path: string) => void
+  onSelectImg: (path: string) => void
 }
 
 const HierarchView: React.FC<HierarchViewProps> = ({node, path, onSelectImg}) => {

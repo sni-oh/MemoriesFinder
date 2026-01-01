@@ -1,0 +1,24 @@
+.thumbnail{
+  position: relative;
+  max-width: 300px;
+  width: 32%;
+  padding: 2px;
+}
+
+.thumbnailImage {
+  width: 100%;
+  justify-content: center;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  border-radius: 7px;
+  box-shadow: 2px 3px gray;
+}
+
+.reactionEmojiContainer {
+  position: absolute;
+  right: 5px;
+  bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+}
