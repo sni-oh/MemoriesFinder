@@ -41,14 +41,14 @@ const HierarchView: React.FC<HierarchViewProps> = ({node, path, onSelectImg}) =>
       <div onClick={() => setIsOpen(() => !isOpen)}>
         <p>{isMonth ? "　":""}{isOpen ? "▼ " : "▶︎ "}{node.folderName}{isMonth ? "月" : "年"}</p>
       </div>
-      {isOpen && node.childrenFolder && node.childrenFolder.map((child) => {
-        return <HierarchView key={child.folderName} node={child} path={`${path}/${child.folderName}`} onSelectImg={onSelectImg}/>
-      })}
-      <div className='thumbnailImageContainer' >
+      <div className='thumbnailImageContainer'>
         {isOpen && node.files.map((file) => {
           return <Thumbnail key={path + file.fileName} file={file} path={path} onSelectImg={onSelectImg}/>
         })}
       </div>
+      {isOpen && node.childrenFolder && node.childrenFolder.map((child) => {
+        return <HierarchView key={child.folderName} node={child} path={`${path}/${child.folderName}`} onSelectImg={onSelectImg}/>
+      })}
     </>
   )
 }

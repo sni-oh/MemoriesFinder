@@ -16,7 +16,7 @@ const MediaPreview: React.FC<MediaPreviewProps> = ({contentPath, contentFile, on
   return (
     <>
       <div className='overlay'>
-        <div className='close-button' onClick={() => {onClose(null, '')}}>閉じる</div>
+        <div className='close-button' onClick={() => {onClose(null, '')}}>✕閉じる</div>
         {contentFile.fileType === "picture" ?
           <img src={AccessPath + "/pics" + contentPath} className='image' /> :
           <video src={AccessPath + "/pics" + contentPath} className='image' controls autoPlay/>}

@@ -10,10 +10,14 @@
 }
 
 .close-button{
-  background-color: black;
+  font-weight: 100;
+  font-family: "ヒラギノ角ゴ ProN W3";
   color: white;
-  position: fixed;
+  position: absolute;
+  left: 10%;
+  top: 7%;
   text-align: right;
+  font-size: 30px;
 }
 
 .image{

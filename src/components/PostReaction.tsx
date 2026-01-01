@@ -52,10 +52,10 @@ const PostReaction: React.FC<PostReactionProps> = ({reactionTargetPath, contentF
 
   return (
     <>
-      <div className='right_down_pos_flexbox'>
+      <div className={`right_down_pos_flexbox`}>
         <div 
           onClick={() => uploadReaction(REACTIONTYPE_LIKE, reactionTargetPath)}
-          className='round_background'
+          className={`round_background  ${isLikeActive && 'background_pink'}`}
         >{isLikeActive ? "❤️" : "🤍"}</div>
       </div>
     </>

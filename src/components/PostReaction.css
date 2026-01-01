@@ -1,7 +1,3 @@
-.sample{
-  background-color: aqua;
-}
-
 .right_down_pos_flexbox{
   display: flex;
   position: fixed;
@@ -12,10 +8,24 @@
 
 .round_background{
   text-align: center;
+  display: flex;
   justify-content: center;
-  background-color: wheat;
-  border-radius: 30px;
+  align-items: center;
+  background-color: #eeeeee;
+  border-radius: 50%;
   width: 60px;
   height: 60px;
   font-size: 40px;
+  box-shadow: 0 5px #6b6b6b;
+  transition: all 0.2s ease;
+}
+
+.round_background:active{
+  transform: translateY(2px);
+  box-shadow: 0 3px #6b6b6b;
+}
+
+.background_pink{
+  background-color: rgb(255, 156, 173);
+  
 }
