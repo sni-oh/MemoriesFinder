@@ -20,7 +20,7 @@ const LikedThumbnail: React.FC<LikedThumbnailProps> = ({file, onSelectImg}) => {
             loading="lazy" 
             onClick={() => onSelectImg(file.Reactions[0].target)}/>
       <div className='reactionEmojiContainer'>
-        {file.Reactions?.find(x => x.reactionType === "Like") ? <div>❤️</div> : false}
+        {file.Reactions?.find(x => x.reactionType === "Like") && <div>❤️</div>}
         {file.fileType === FILETYPE_VIDEO && <div>🎥</div>}
       </div>
     </div>
