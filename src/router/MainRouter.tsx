@@ -50,6 +50,17 @@ const MainRouter: React.FC = () => {
     setMode(modeString);
   }
 
+  const updateIndexInfo = (path: string, func: (f: FileInfo) => void) => {
+    console.log(path)
+    const pathArr = path.split('/')
+    const file = indexInfo?.childrenFolder.find(x => x.folderName === pathArr[1])
+              ?.childrenFolder.find(x => x.folderName === pathArr[2])
+              ?.files.find((x => x.fileName === pathArr[3]));
+    console.log(file)
+    if(file) func(file)
+    setIndexInfo(indexInfo)
+  }
+
   useEffect(() => {
     fetchIndex()
       .then(res => {
@@ -89,7 +100,7 @@ const MainRouter: React.FC = () => {
         && <HierarchView key={"root"} node={indexInfo as FolderNode} path={""} onSelectImg={changePreviewFile}/>}
       {indexInfo && mode === 'Like'
         && <LikeThumbsContainer onSelectImg={changePreviewFile} indexInfo={indexInfo} />}
-      {previewFile && <ModalPreview contentPath={previewPath} contentFile={previewFile} onClose={changePreviewFile}/>}
+      {previewFile && <ModalPreview contentPath={previewPath} contentFile={previewFile} onClose={changePreviewFile}  updateIndexInfo={updateIndexInfo}/>}
       {!previewFile && <ModeSelectionTab changeMode={switchSelectedMode}/>}
     </>
   )

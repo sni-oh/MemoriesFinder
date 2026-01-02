@@ -1,19 +1,20 @@
 import { useState } from 'react';
 import './PostReaction.css'
 import React from 'react';
-import type { FileInfo } from '../types/types';
+import type { FileInfo, Reaction } from '../types/types';
 
 const REACTIONTYPE_LIKE = "Like"
 //const REACTIONTYPE_COMMENT = "Comment"
 
 interface PostReactionProps{
   reactionTargetPath: string,
-  contentFile: FileInfo
+  contentFile: FileInfo,
+  updateIndexInfo: (path: string, func: (f: FileInfo) => void) => void
 }
 
 const AccessPath = import.meta.env.VITE_API_BASE;
 
-const PostReaction: React.FC<PostReactionProps> = ({reactionTargetPath, contentFile}) => {
+const PostReaction: React.FC<PostReactionProps> = ({reactionTargetPath, contentFile, updateIndexInfo}) => {
   const [isLikeActive, setIsLikeActive] = useState(contentFile.Reactions?.filter(x => x.reactionType === REACTIONTYPE_LIKE).length > 0)
 
   // リアクションをアップロードする
@@ -25,6 +26,7 @@ const PostReaction: React.FC<PostReactionProps> = ({reactionTargetPath, contentF
     }
 
     setIsLikeActive(true)
+    
 
     fetch(`${AccessPath}/main/api/postdata`, {
     method: 'POST',
@@ -40,8 +42,19 @@ const PostReaction: React.FC<PostReactionProps> = ({reactionTargetPath, contentF
       })
     })
     .then(res => {
-      console.log(res.body)
-      if(res.status !== 200){
+      if(res.status === 200){
+        updateIndexInfo(path, (x) => {
+          const emptyReaction: Reaction = {
+            reactionType: 'Like',
+            content: '',
+            id: '',
+            user: '',
+            target: path,
+            uploadDate: ''
+          };
+          (x['Reactions'] ||= [emptyReaction]).push(emptyReaction)
+        })
+      }else{
         alert("通信に失敗しました。")
         setIsLikeActive(false)
       }

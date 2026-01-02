@@ -6,12 +6,13 @@ import type { FileInfo } from '../types/types'
 interface MediaPreviewProps{
   contentPath: string,
   contentFile: FileInfo,
-  onClose: (path: string) => void
+  onClose: (path: string) => void,
+  updateIndexInfo: (path: string, func: (f: FileInfo) => void) => void
 }
 
 const AccessPath = import.meta.env.VITE_API_BASE;
 
-const MediaPreview: React.FC<MediaPreviewProps> = ({contentPath, contentFile, onClose}) => {
+const MediaPreview: React.FC<MediaPreviewProps> = ({contentPath, contentFile, onClose, updateIndexInfo}) => {
 
   return (
     <>
@@ -20,7 +21,7 @@ const MediaPreview: React.FC<MediaPreviewProps> = ({contentPath, contentFile, on
         {contentFile.fileType === "picture" ?
           <img src={AccessPath + "/pics" + contentPath} className='image' /> :
           <video src={AccessPath + "/pics" + contentPath} className='image' controls autoPlay/>}
-        <PostReaction reactionTargetPath={contentPath} contentFile={contentFile}/>
+        <PostReaction reactionTargetPath={contentPath} contentFile={contentFile} updateIndexInfo={updateIndexInfo}/>
       </div>
     </>
   )
